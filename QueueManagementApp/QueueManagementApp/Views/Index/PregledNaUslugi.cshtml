@@ -1,0 +1,41 @@
+﻿@model IEnumerable<QueueManagementApp.Uslugi>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PregledNaUslugi</title>
+</head>
+<body>
+    <p>
+        Pregled na uslugi
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Usluga)
+            </th>
+            <th>Odberi usluga
+             </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usluga)
+            </td>
+            <td>
+          <input type="button" value="Odberi usluga" onclick="location.href='@Url.Action("OdberiUsluga", "Index")?id=' + @item.Id" />
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

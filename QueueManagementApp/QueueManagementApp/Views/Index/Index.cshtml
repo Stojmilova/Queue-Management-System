@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h1>Welcome</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Pregled na uslugi</h2>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Uslugi &raquo;</a></p>
+       
+        <input type="button" value="Pregled na uslugi" onclick="location.href='@Url.Action("PregledNaUslugi", "Index")'" />
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+

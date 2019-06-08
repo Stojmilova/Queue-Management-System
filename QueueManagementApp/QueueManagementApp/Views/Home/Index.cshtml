@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Welcome</h1>
+    
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        
+        <p><a class="btn btn-default"  onclick="location.href='@Url.Action("PregledNaUslugi", "Index")'">Korisnici &raquo;</a></p>
+
+    </div>
+    <div class="col-md-4">
+          <p><a class="btn btn-default" onclick="location.href='@Url.Action("PregledNaSalteri", "Index")'">Salterski rabotnik &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Administrator &raquo;</a></p>
+    </div>
+</div>

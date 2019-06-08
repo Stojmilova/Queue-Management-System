@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QueueManagementModelStoreContainer" CdmEntityContainer="QueueManagementEntities">
+    <EntitySetMapping Name="RedniBroevis">
+      <EntityTypeMapping TypeName="QueueManagementModel.RedniBroevi">
+        <MappingFragment StoreEntitySet="RedniBroevi">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UslugaId" ColumnName="UslugaId" />
+          <ScalarProperty Name="SalterId" ColumnName="SalterId" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="RedenBroj" ColumnName="RedenBroj" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uslugis">
+      <EntityTypeMapping TypeName="QueueManagementModel.Uslugi">
+        <MappingFragment StoreEntitySet="Uslugi">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Usluga" ColumnName="Usluga" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsligiSalteris">
+      <EntityTypeMapping TypeName="QueueManagementModel.UsligiSalteri">
+        <MappingFragment StoreEntitySet="UsligiSalteri">
+          <ScalarProperty Name="UslugaId" ColumnName="UslugaId" />
+          <ScalarProperty Name="SalterId" ColumnName="SalterId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salteris">
+      <EntityTypeMapping TypeName="QueueManagementModel.Salteri">
+        <MappingFragment StoreEntitySet="Salteri">
+          <ScalarProperty Name="Salter" ColumnName="Salter" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

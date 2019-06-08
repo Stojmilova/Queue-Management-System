@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QueueManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="RedniBroevi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UslugaId" Type="Int32" Nullable="false" />
+    <Property Name="SalterId" Type="Int32" />
+    <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RedenBroj" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Salteri" Relationship="QueueManagementModel.FK_RedniBroevi_Salteri" FromRole="RedniBroevi" ToRole="Salteri" />
+    <NavigationProperty Name="Uslugi" Relationship="QueueManagementModel.FK_RedniBroevi_Uslugi" FromRole="RedniBroevi" ToRole="Uslugi" />
+  </EntityType>
+  <EntityType Name="Uslugi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usluga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RedniBroevis" Relationship="QueueManagementModel.FK_RedniBroevi_Uslugi" FromRole="Uslugi" ToRole="RedniBroevi" />
+    <NavigationProperty Name="UsligiSalteris" Relationship="QueueManagementModel.FK_UsligiSalteri_Uslugi" FromRole="Uslugi" ToRole="UsligiSalteri" />
+  </EntityType>
+  <EntityContainer Name="QueueManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="RedniBroevis" EntityType="Self.RedniBroevi" />
+    <EntitySet Name="Uslugis" EntityType="Self.Uslugi" />
+    <EntitySet Name="UsligiSalteris" EntityType="QueueManagementModel.UsligiSalteri" />
+    <EntitySet Name="Salteris" EntityType="QueueManagementModel.Salteri" />
+    <AssociationSet Name="FK_RedniBroevi_Salteri" Association="QueueManagementModel.FK_RedniBroevi_Salteri">
+      <End Role="Salteri" EntitySet="Salteris" />
+      <End Role="RedniBroevi" EntitySet="RedniBroevis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RedniBroevi_Uslugi" Association="QueueManagementModel.FK_RedniBroevi_Uslugi">
+      <End Role="Uslugi" EntitySet="Uslugis" />
+      <End Role="RedniBroevi" EntitySet="RedniBroevis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsligiSalteri_Salteri" Association="QueueManagementModel.FK_UsligiSalteri_Salteri">
+      <End Role="Salteri" EntitySet="Salteris" />
+      <End Role="UsligiSalteri" EntitySet="UsligiSalteris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsligiSalteri_Uslugi" Association="QueueManagementModel.FK_UsligiSalteri_Uslugi">
+      <End Role="Uslugi" EntitySet="Uslugis" />
+      <End Role="UsligiSalteri" EntitySet="UsligiSalteris" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UsligiSalteri">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SalterId" Type="Int32" Nullable="false" />
+    <Property Name="UslugaId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Salteri" Relationship="QueueManagementModel.FK_UsligiSalteri_Salteri" FromRole="UsligiSalteri" ToRole="Salteri" />
+    <NavigationProperty Name="Uslugi" Relationship="QueueManagementModel.FK_UsligiSalteri_Uslugi" FromRole="UsligiSalteri" ToRole="Uslugi" />
+  </EntityType>
+  <EntityType Name="Salteri">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Salter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RedniBroevis" Relationship="QueueManagementModel.FK_RedniBroevi_Salteri" FromRole="Salteri" ToRole="RedniBroevi" />
+    <NavigationProperty Name="UsligiSalteris" Relationship="QueueManagementModel.FK_UsligiSalteri_Salteri" FromRole="Salteri" ToRole="UsligiSalteri" />
+  </EntityType>
+  <Association Name="FK_RedniBroevi_Salteri">
+    <End Type="QueueManagementModel.Salteri" Role="Salteri" Multiplicity="0..1" />
+    <End Type="QueueManagementModel.RedniBroevi" Role="RedniBroevi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salteri">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RedniBroevi">
+        <PropertyRef Name="SalterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RedniBroevi_Uslugi">
+    <End Type="QueueManagementModel.Uslugi" Role="Uslugi" Multiplicity="1" />
+    <End Type="QueueManagementModel.RedniBroevi" Role="RedniBroevi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uslugi">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RedniBroevi">
+        <PropertyRef Name="UslugaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsligiSalteri_Salteri">
+    <End Type="QueueManagementModel.Salteri" Role="Salteri" Multiplicity="1" />
+    <End Type="QueueManagementModel.UsligiSalteri" Role="UsligiSalteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salteri">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsligiSalteri">
+        <PropertyRef Name="SalterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsligiSalteri_Uslugi">
+    <End Type="QueueManagementModel.Uslugi" Role="Uslugi" Multiplicity="1" />
+    <End Type="QueueManagementModel.UsligiSalteri" Role="UsligiSalteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uslugi">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsligiSalteri">
+        <PropertyRef Name="UslugaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

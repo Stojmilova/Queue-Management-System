@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QueueManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="RedniBroevi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UslugaId" Type="int" Nullable="false" />
+          <Property Name="SalterId" Type="int" />
+          <Property Name="Datum" Type="datetime" Nullable="false" />
+          <Property Name="RedenBroj" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salteri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Salter" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UsligiSalteri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalterId" Type="int" Nullable="false" />
+          <Property Name="UslugaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uslugi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usluga" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_RedniBroevi_Salteri">
+          <End Role="Salteri" Type="Self.Salteri" Multiplicity="0..1" />
+          <End Role="RedniBroevi" Type="Self.RedniBroevi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salteri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedniBroevi">
+              <PropertyRef Name="SalterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedniBroevi_Uslugi">
+          <End Role="Uslugi" Type="Self.Uslugi" Multiplicity="1" />
+          <End Role="RedniBroevi" Type="Self.RedniBroevi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedniBroevi">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsligiSalteri_Salteri">
+          <End Role="Salteri" Type="Self.Salteri" Multiplicity="1" />
+          <End Role="UsligiSalteri" Type="Self.UsligiSalteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salteri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsligiSalteri">
+              <PropertyRef Name="SalterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsligiSalteri_Uslugi">
+          <End Role="Uslugi" Type="Self.Uslugi" Multiplicity="1" />
+          <End Role="UsligiSalteri" Type="Self.UsligiSalteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsligiSalteri">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QueueManagementModelStoreContainer">
+          <EntitySet Name="RedniBroevi" EntityType="Self.RedniBroevi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salteri" EntityType="Self.Salteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsligiSalteri" EntityType="Self.UsligiSalteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uslugi" EntityType="Self.Uslugi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RedniBroevi_Salteri" Association="Self.FK_RedniBroevi_Salteri">
+            <End Role="Salteri" EntitySet="Salteri" />
+            <End Role="RedniBroevi" EntitySet="RedniBroevi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedniBroevi_Uslugi" Association="Self.FK_RedniBroevi_Uslugi">
+            <End Role="Uslugi" EntitySet="Uslugi" />
+            <End Role="RedniBroevi" EntitySet="RedniBroevi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsligiSalteri_Salteri" Association="Self.FK_UsligiSalteri_Salteri">
+            <End Role="Salteri" EntitySet="Salteri" />
+            <End Role="UsligiSalteri" EntitySet="UsligiSalteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsligiSalteri_Uslugi" Association="Self.FK_UsligiSalteri_Uslugi">
+            <End Role="Uslugi" EntitySet="Uslugi" />
+            <End Role="UsligiSalteri" EntitySet="UsligiSalteri" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QueueManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="RedniBroevi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UslugaId" Type="Int32" Nullable="false" />
+          <Property Name="SalterId" Type="Int32" />
+          <Property Name="Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RedenBroj" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Salteri" Relationship="QueueManagementModel.FK_RedniBroevi_Salteri" FromRole="RedniBroevi" ToRole="Salteri" />
+          <NavigationProperty Name="Uslugi" Relationship="QueueManagementModel.FK_RedniBroevi_Uslugi" FromRole="RedniBroevi" ToRole="Uslugi" />
+        </EntityType>
+        <EntityType Name="Uslugi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usluga" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RedniBroevis" Relationship="QueueManagementModel.FK_RedniBroevi_Uslugi" FromRole="Uslugi" ToRole="RedniBroevi" />
+          <NavigationProperty Name="UsligiSalteris" Relationship="QueueManagementModel.FK_UsligiSalteri_Uslugi" FromRole="Uslugi" ToRole="UsligiSalteri" />
+        </EntityType>
+        <EntityContainer Name="QueueManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RedniBroevis" EntityType="Self.RedniBroevi" />
+          <EntitySet Name="Uslugis" EntityType="Self.Uslugi" />
+          <EntitySet Name="UsligiSalteris" EntityType="QueueManagementModel.UsligiSalteri" />
+          <EntitySet Name="Salteris" EntityType="QueueManagementModel.Salteri" />
+          <AssociationSet Name="FK_RedniBroevi_Salteri" Association="QueueManagementModel.FK_RedniBroevi_Salteri">
+            <End Role="Salteri" EntitySet="Salteris" />
+            <End Role="RedniBroevi" EntitySet="RedniBroevis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedniBroevi_Uslugi" Association="QueueManagementModel.FK_RedniBroevi_Uslugi">
+            <End Role="Uslugi" EntitySet="Uslugis" />
+            <End Role="RedniBroevi" EntitySet="RedniBroevis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsligiSalteri_Salteri" Association="QueueManagementModel.FK_UsligiSalteri_Salteri">
+            <End Role="Salteri" EntitySet="Salteris" />
+            <End Role="UsligiSalteri" EntitySet="UsligiSalteris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsligiSalteri_Uslugi" Association="QueueManagementModel.FK_UsligiSalteri_Uslugi">
+            <End Role="Uslugi" EntitySet="Uslugis" />
+            <End Role="UsligiSalteri" EntitySet="UsligiSalteris" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UsligiSalteri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalterId" Type="Int32" Nullable="false" />
+          <Property Name="UslugaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Salteri" Relationship="QueueManagementModel.FK_UsligiSalteri_Salteri" FromRole="UsligiSalteri" ToRole="Salteri" />
+          <NavigationProperty Name="Uslugi" Relationship="QueueManagementModel.FK_UsligiSalteri_Uslugi" FromRole="UsligiSalteri" ToRole="Uslugi" />
+        </EntityType>
+        <EntityType Name="Salteri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Salter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RedniBroevis" Relationship="QueueManagementModel.FK_RedniBroevi_Salteri" FromRole="Salteri" ToRole="RedniBroevi" />
+          <NavigationProperty Name="UsligiSalteris" Relationship="QueueManagementModel.FK_UsligiSalteri_Salteri" FromRole="Salteri" ToRole="UsligiSalteri" />
+        </EntityType>
+        <Association Name="FK_RedniBroevi_Salteri">
+          <End Type="QueueManagementModel.Salteri" Role="Salteri" Multiplicity="0..1" />
+          <End Type="QueueManagementModel.RedniBroevi" Role="RedniBroevi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salteri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedniBroevi">
+              <PropertyRef Name="SalterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedniBroevi_Uslugi">
+          <End Type="QueueManagementModel.Uslugi" Role="Uslugi" Multiplicity="1" />
+          <End Type="QueueManagementModel.RedniBroevi" Role="RedniBroevi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedniBroevi">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsligiSalteri_Salteri">
+          <End Type="QueueManagementModel.Salteri" Role="Salteri" Multiplicity="1" />
+          <End Type="QueueManagementModel.UsligiSalteri" Role="UsligiSalteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salteri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsligiSalteri">
+              <PropertyRef Name="SalterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsligiSalteri_Uslugi">
+          <End Type="QueueManagementModel.Uslugi" Role="Uslugi" Multiplicity="1" />
+          <End Type="QueueManagementModel.UsligiSalteri" Role="UsligiSalteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsligiSalteri">
+              <PropertyRef Name="UslugaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QueueManagementModelStoreContainer" CdmEntityContainer="QueueManagementEntities">
+          <EntitySetMapping Name="RedniBroevis">
+            <EntityTypeMapping TypeName="QueueManagementModel.RedniBroevi">
+              <MappingFragment StoreEntitySet="RedniBroevi">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UslugaId" ColumnName="UslugaId" />
+                <ScalarProperty Name="SalterId" ColumnName="SalterId" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="RedenBroj" ColumnName="RedenBroj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uslugis">
+            <EntityTypeMapping TypeName="QueueManagementModel.Uslugi">
+              <MappingFragment StoreEntitySet="Uslugi">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Usluga" ColumnName="Usluga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsligiSalteris">
+            <EntityTypeMapping TypeName="QueueManagementModel.UsligiSalteri">
+              <MappingFragment StoreEntitySet="UsligiSalteri">
+                <ScalarProperty Name="UslugaId" ColumnName="UslugaId" />
+                <ScalarProperty Name="SalterId" ColumnName="SalterId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salteris">
+            <EntityTypeMapping TypeName="QueueManagementModel.Salteri">
+              <MappingFragment StoreEntitySet="Salteri">
+                <ScalarProperty Name="Salter" ColumnName="Salter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

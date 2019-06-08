@@ -1,0 +1,30 @@
+﻿@model QueueManagementApp.Models.SledenKorisnikViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sleden Korisnik</title>
+</head>
+<body>
+    @if (Model != null)
+    {
+        <div>
+            @Model.RedenBroj.ToString()
+        </div>
+        <div>
+            @Model.Salter
+        </div>
+
+    }
+    else
+    {
+    <p>Nema neopsluzeni korisnici</p>
+    }
+
+</body>
+</html>

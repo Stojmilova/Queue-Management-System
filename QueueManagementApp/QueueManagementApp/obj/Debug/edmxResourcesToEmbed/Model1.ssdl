@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QueueManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="RedniBroevi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UslugaId" Type="int" Nullable="false" />
+    <Property Name="SalterId" Type="int" />
+    <Property Name="Datum" Type="datetime" Nullable="false" />
+    <Property Name="RedenBroj" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Salteri">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Salter" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UsligiSalteri">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SalterId" Type="int" Nullable="false" />
+    <Property Name="UslugaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Uslugi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usluga" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_RedniBroevi_Salteri">
+    <End Role="Salteri" Type="Self.Salteri" Multiplicity="0..1" />
+    <End Role="RedniBroevi" Type="Self.RedniBroevi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salteri">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RedniBroevi">
+        <PropertyRef Name="SalterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RedniBroevi_Uslugi">
+    <End Role="Uslugi" Type="Self.Uslugi" Multiplicity="1" />
+    <End Role="RedniBroevi" Type="Self.RedniBroevi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uslugi">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RedniBroevi">
+        <PropertyRef Name="UslugaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsligiSalteri_Salteri">
+    <End Role="Salteri" Type="Self.Salteri" Multiplicity="1" />
+    <End Role="UsligiSalteri" Type="Self.UsligiSalteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salteri">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsligiSalteri">
+        <PropertyRef Name="SalterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsligiSalteri_Uslugi">
+    <End Role="Uslugi" Type="Self.Uslugi" Multiplicity="1" />
+    <End Role="UsligiSalteri" Type="Self.UsligiSalteri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uslugi">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsligiSalteri">
+        <PropertyRef Name="UslugaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QueueManagementModelStoreContainer">
+    <EntitySet Name="RedniBroevi" EntityType="Self.RedniBroevi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Salteri" EntityType="Self.Salteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsligiSalteri" EntityType="Self.UsligiSalteri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uslugi" EntityType="Self.Uslugi" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_RedniBroevi_Salteri" Association="Self.FK_RedniBroevi_Salteri">
+      <End Role="Salteri" EntitySet="Salteri" />
+      <End Role="RedniBroevi" EntitySet="RedniBroevi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RedniBroevi_Uslugi" Association="Self.FK_RedniBroevi_Uslugi">
+      <End Role="Uslugi" EntitySet="Uslugi" />
+      <End Role="RedniBroevi" EntitySet="RedniBroevi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsligiSalteri_Salteri" Association="Self.FK_UsligiSalteri_Salteri">
+      <End Role="Salteri" EntitySet="Salteri" />
+      <End Role="UsligiSalteri" EntitySet="UsligiSalteri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsligiSalteri_Uslugi" Association="Self.FK_UsligiSalteri_Uslugi">
+      <End Role="Uslugi" EntitySet="Uslugi" />
+      <End Role="UsligiSalteri" EntitySet="UsligiSalteri" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QueueManagementApp.Salteri>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PregledNaSalteri</title>
+</head>
+<body>
+    <p>
+        Pregled na salteri
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Salter)
+            </th>
+            <th>
+                Odberi usluga
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salter)
+                </td>
+                <td>
+                    <input type="button" value="Odberi sleden korisnik" onclick="location.href='@Url.Action("SledenKorisnik", "Index")?id=' + @item.Id" />
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
